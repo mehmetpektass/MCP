@@ -24,7 +24,7 @@ async def make_weather_https_request(url: str) -> dict[str, Any] | None:
             return None
         
 
-def format_alert(feature: dict) -> str:
+def format_weather_alert(feature: dict) -> str:
     """Format an alert feature into a readable string."""
     properties = feature["properties"]
     return f"""
@@ -34,3 +34,22 @@ def format_alert(feature: dict) -> str:
         Description: {properties.get('description', 'No description available')}
         Instructions: {properties.get('instruction', 'No specific instructions provided')}
         """
+        
+@mcp.tool()
+async def get_weather_alerts(state:str) ->str:
+    """Get weather alerts for a US state.
+
+    Args:
+        state: Two-letter US state code (e.g. CA, NY)
+    """
+    url = f"{NWS_API_BASE}/alerts/activate/area/{state}"
+    data = await make_weather_https_request(url)
+    
+    if not data or "features" not in data:
+        return "Unable to fetch alerts or no alerts found."
+
+    if not data["features"]:
+        return "No active alerts for this state."
+    
+    weather_alerts = [format_weather_alert(feature) for feature in data["features"]]
+    return "\n---\n".join(weather_alerts)
