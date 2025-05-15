@@ -42,7 +42,7 @@ async def get_weather_alerts(state:str) ->str:
     Args:
         state: Two-letter US state code (e.g. CA, NY)
     """
-    url = f"{NWS_API_BASE}/alerts/activate/area/{state}"
+    url = f"{NWS_API_BASE}/alerts/active?area={state}"
     data = await make_weather_https_request(url)
     
     if not data or "features" not in data:
