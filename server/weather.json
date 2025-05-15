@@ -1,0 +1,15 @@
+{
+    "mcpServers":{
+        "weather": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--with",
+        "mcp[cli]",
+        "mcp",
+        "run",
+        "/Users/mehmetpektas/Documents/Belgeler - Mehmet MacBook Air/Documents/MachineLearningProjects/MCP /server/weather.json"
+      ]
+    }
+}
+}
