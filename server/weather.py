@@ -53,3 +53,9 @@ async def get_weather_alerts(state:str) ->str:
     
     weather_alerts = [format_weather_alert(feature) for feature in data["features"]]
     return "\n---\n".join(weather_alerts)
+
+@mcp.resource("echo://{message}")
+def echo_recource(message: str) -> str:
+    """Echo a message as resource"""
+    return f"Resource echo: {message}"
+    
